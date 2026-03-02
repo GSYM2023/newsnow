@@ -1,0 +1,14 @@
+name: Scheduled Build
+on:
+  schedule:
+    # 这里的 cron 表达式代表每小时执行一次 (UTC 时间)
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # 允许手动点击运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare Pages Build
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/6c578b76-f9f4-4b2c-b6b7-dcc6076c7fe8"
